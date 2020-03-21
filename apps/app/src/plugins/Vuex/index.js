@@ -8,9 +8,17 @@ const ITEMS_BASE_PRICE = {
     wood: 20,
     pepper: 30
   },
-  spirit: {
+  gatherer_spirit: {
     wood: 25,
     pepper: 15
+  },
+  woodcutter_spirit: {
+    wood: 25,
+    pepper: 40
+  },
+  fruit_gatherer_spirit: {
+    wood: 15,
+    pepper: 25
   }
 }
 
@@ -40,10 +48,22 @@ export default new Vuex.Store({
           cost: ITEMS_BASE_PRICE.lama
         },
         {
-          key: 'spirit',
-          name: 'Esprit',
-          description: 'Help the pupil by collecting wood and pepper automatically.',
-          cost: ITEMS_BASE_PRICE.spirit
+          key: 'gatherer_spirit',
+          name: 'Gatherer Spirit',
+          description: 'Help the pupil by collecting one wood or pepper automatically.',
+          cost: ITEMS_BASE_PRICE.gatherer_spirit
+        },
+        {
+          key: 'woodcutter_spirit',
+          name: 'Woodcutter Spirit',
+          description: 'Help the pupil by collecting only one wood at the time automatically.',
+          cost: ITEMS_BASE_PRICE.woodcutter_spirit
+        },
+        {
+          key: 'fruit_gatherer_spirit',
+          name: 'Fruit Gatherer Spirit',
+          description: 'Help the pupil by collecting only one pepper at the time automatically.',
+          cost: ITEMS_BASE_PRICE.fruit_gatherer_spirit
         }
       ]
     }
@@ -88,7 +108,8 @@ export default new Vuex.Store({
       return state.pupil.items
     },
     getPupilSpirits (state) {
-      return state.pupil.items.filter(item => item === 'spirit')
+      const SPIRITS = ['gatherer_spirit', 'fruit_gatherer_spirit', 'woodcutter_spirit']
+      return state.pupil.items.filter(item => SPIRITS.includes(item))
     }
   },
   mutations: {
@@ -195,14 +216,30 @@ export default new Vuex.Store({
       }
     },
     increasePupilResources ({ commit, getters }) {
-      const spirits = getters.getPupilSpirits.length
-      const isOdd = Math.round(Math.random()) % 2
+      const spirits = getters.getPupilSpirits
+      let woodIncrease = 0
+      let pepperIncrease = 0
 
-      if (isOdd) {
-        commit('INCREASE_PUPIL_WOOD_BY', spirits)
-      } else {
-        commit('INCREASE_PUPIL_PEPPER_BY', spirits)
-      }
+      spirits.forEach(spirit => {
+        if (spirit === 'gatherer_spirit') {
+          const isOdd = Math.round(Math.random()) % 2
+    
+          if (isOdd) {
+            woodIncrease += 1
+          } else {
+            pepperIncrease += 1
+          }
+        } else {
+          if (spirit === 'fruit_gatherer_spirit') {
+            pepperIncrease += 1
+          } else {
+            woodIncrease += 1
+          }
+        }
+      })
+
+      commit('INCREASE_PUPIL_PEPPER_BY', pepperIncrease)
+      commit('INCREASE_PUPIL_WOOD_BY', woodIncrease)
     },
     increaseTribeResources ({ commit, getters }) {
       const wood = getters.getTribeWood
