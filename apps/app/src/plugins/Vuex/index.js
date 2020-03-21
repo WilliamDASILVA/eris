@@ -19,6 +19,10 @@ const ITEMS_BASE_PRICE = {
   fruit_gatherer_spirit: {
     wood: 15,
     pepper: 25
+  },
+  max_capacity: {
+    wood: 100,
+    pepper: 100
   }
 }
 
@@ -29,8 +33,7 @@ export default new Vuex.Store({
       speciality: 'gatherer', // sinon peut être "fruit_gatherer", "lumberman"
       wood: 0,
       items: [],
-      pepper: 0,
-      max_capacity: 100
+      pepper: 0
     },
     tribe: {
       progression: 0,
@@ -65,6 +68,12 @@ export default new Vuex.Store({
           name: 'Fruit Gatherer Spirit',
           description: 'Help the pupil by collecting only one pepper at the time automatically.',
           cost: ITEMS_BASE_PRICE.fruit_gatherer_spirit
+        },
+        {
+          key: 'max_capacity',
+          name: 'Ballon capacity',
+          description: 'Increase the ballon capacity by 100.',
+          cost: ITEMS_BASE_PRICE.max_capacity
         }
       ]
     }
@@ -79,8 +88,11 @@ export default new Vuex.Store({
     getPupilPepper (state) {
       return state.pupil.pepper
     },
-    getPupilMaxCapacity (state) {
-      return state.pupil.max_capacity
+    getPupilMaxCapacity (state, getters) {
+     const totalCapacity = getters.getPupilItems
+      .filter(v => v === 'max_capacity')
+
+     return 100 + (100 * totalCapacity.length)
     },
     getTribeWood (state) {
       return state.tribe.wood
