@@ -86,6 +86,9 @@ export default new Vuex.Store({
     },
     getPupilItems (state) {
       return state.pupil.items
+    },
+    getPupilSpirits (state) {
+      return state.pupil.items.filter(item => item === 'spirit')
     }
   },
   mutations: {
@@ -109,6 +112,12 @@ export default new Vuex.Store({
     },
     SET_PUPIL_ITEM (state, item) {
       state.pupil.items.push(item)
+    },
+    INCREASE_PUPIL_WOOD_BY (state, value) {
+      state.pupil.wood = state.pupil.wood + value
+    },
+    INCREASE_PUPIL_PEPPER_BY (state, value) {
+      state.pupil.pepper = state.pupil.pepper + value
     }
   },
   actions: {
@@ -183,6 +192,16 @@ export default new Vuex.Store({
             pepper: Math.round(previousCost.pepper + (priceMultiplyBy * baseCost.pepper))
           }
         })
+      }
+    },
+    increasePupilResources ({ commit, getters }) {
+      const spirits = getters.getPupilSpirits.length
+      const isOdd = Math.round(Math.random()) % 2
+
+      if (isOdd) {
+        commit('INCREASE_PUPIL_WOOD_BY', spirits)
+      } else {
+        commit('INCREASE_PUPIL_PEPPER_BY', spirits)
       }
     },
     increaseTribeResources ({ commit, getters }) {

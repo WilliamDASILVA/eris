@@ -86,6 +86,7 @@
     },
     mounted () {
       this.interval = setInterval(() => {
+        this.increasePupilResources()
         this.increaseTribeResources()
         this.decreaseTribeResources()
       }, 1000)
@@ -100,6 +101,7 @@
         'gather',
         'unload',
         'shop',
+        'increasePupilResources',
         'increaseTribeResources',
         'decreaseTribeResources'
       ]),
