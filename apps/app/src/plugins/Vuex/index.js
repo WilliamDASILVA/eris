@@ -29,7 +29,8 @@ export default new Vuex.Store({
       speciality: 'gatherer', // sinon peut être "fruit_gatherer", "lumberman"
       wood: 0,
       items: [],
-      pepper: 0
+      pepper: 0,
+      max_capacity: 100
     },
     tribe: {
       progression: 0,
@@ -77,6 +78,9 @@ export default new Vuex.Store({
     },
     getPupilPepper (state) {
       return state.pupil.pepper
+    },
+    getPupilMaxCapacity (state) {
+      return state.pupil.max_capacity
     },
     getTribeWood (state) {
       return state.tribe.wood
@@ -165,13 +169,17 @@ export default new Vuex.Store({
     unload ({ commit, getters }) {
       const pupilWood = getters.getPupilWood
       const pupilPepper = getters.getPupilPepper
+      const maxCapacity = getters.getPupilMaxCapacity
       const wood = getters.getTribeWood
       const pepper = getters.getTribePepper
 
-      commit('SET_TRIBE_WOOD', wood + pupilWood)
-      commit('SET_TRIBE_PEPPER', pepper + pupilPepper)
-      commit('SET_PUPIL_WOOD', 0)
-      commit('SET_PUPIL_PEPPER', 0)
+      const woodToCarry = Math.min(pupilWood, (maxCapacity / 2))
+      const pepperToCarry = Math.min(pupilPepper, (maxCapacity / 2))
+
+      commit('SET_TRIBE_WOOD', wood + woodToCarry)
+      commit('SET_TRIBE_PEPPER', pepper + pepperToCarry)
+      commit('SET_PUPIL_WOOD', Math.max(0, pupilWood - (maxCapacity / 2)))
+      commit('SET_PUPIL_PEPPER', Math.max(0, pupilPepper - (maxCapacity / 2)))
     },
     shop ({ commit, getters, dispatch }, itemKey) {
       const pupilWood = getters.getPupilWood

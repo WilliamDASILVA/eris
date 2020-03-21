@@ -10,6 +10,9 @@
       <div>
         Pepper: {{ getPupilPepper }}
       </div>
+      <div>
+        Max capacity: {{ getPupilMaxCapacity }}
+      </div>
     </div>
     <div>
       <h1>
@@ -81,6 +84,7 @@
         'getTribeWood',
         'getTribePepper',
         'getCooldown',
+        'getPupilMaxCapacity',
         'getTribeProgression'
       ])
     },
