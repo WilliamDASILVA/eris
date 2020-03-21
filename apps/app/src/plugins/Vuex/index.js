@@ -3,6 +3,17 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+const ITEMS_BASE_PRICE = {
+  lama: {
+    wood: 20,
+    pepper: 30
+  },
+  spirit: {
+    wood: 25,
+    pepper: 15
+  }
+}
+
 export default new Vuex.Store({
   state: {
     unload_cooldown: 2000,
@@ -22,13 +33,17 @@ export default new Vuex.Store({
         {
           key: 'lama',
           name: 'Lama',
+          description: 'Reduce the delay between each travel between the forest and the caravan.',
           stats: {
             cooldown_reduction: 1000
           },
-          cost: {
-            wood: 20,
-            pepper: 30
-          }
+          cost: ITEMS_BASE_PRICE.lama
+        },
+        {
+          key: 'spirit',
+          name: 'Esprit',
+          description: 'Help the pupil by collecting wood and pepper automatically.',
+          cost: ITEMS_BASE_PRICE.spirit
         }
       ]
     }
@@ -57,10 +72,9 @@ export default new Vuex.Store({
        * Appliquer cooldown reduction au cooldown de base
        */
       const totalCDR = getters.getPupilItems
-        .map(v => {
-          const item = getters.getEyeItems.find(_v => _v.key === v)
-          return item.stats.cooldown_reduction
-        })
+        .map(v => getters.getEyeItems.find(_v => _v.key === v))
+        .filter(item => item.stats && !!item.stats.cooldown_reduction)
+        .map(item => item.stats.cooldown_reduction)
         .reduce((a, b) => a + b, 0)
 
       return {
@@ -89,6 +103,9 @@ export default new Vuex.Store({
     },
     SET_TRIBE_PROGRESSION (state, progression) {
       state.tribe.progression = progression
+    },
+    SET_EYE_ITEM_COST (state, { itemIndex, cost }) {
+      Vue.set(state.eye.items[itemIndex], 'cost', cost)
     },
     SET_PUPIL_ITEM (state, item) {
       state.pupil.items.push(item)
@@ -126,7 +143,7 @@ export default new Vuex.Store({
       commit('SET_PUPIL_WOOD', 0)
       commit('SET_PUPIL_PEPPER', 0)
     },
-    shop ({ commit, getters }, itemKey) {
+    shop ({ commit, getters, dispatch }, itemKey) {
       const pupilWood = getters.getPupilWood
       const pupilPepper = getters.getPupilPepper
 
@@ -138,9 +155,34 @@ export default new Vuex.Store({
           commit('SET_PUPIL_WOOD', pupilWood - wood)
           commit('SET_PUPIL_PEPPER', pupilPepper - pepper)
           commit('SET_PUPIL_ITEM', item.key)
+
+          /**
+           * Increase the cost of the bought item
+           */
+          dispatch('increaseItemPrice', item.key)
         } else {
           // CANNOT BUY
         }
+      }
+    },
+    increaseItemPrice ({ commit, getters }, itemKey) {
+      const itemIndex = getters.getEyeItems.findIndex(v => v.key === itemKey)
+      const pupilItems = getters.getPupilItems
+      
+      if (itemIndex !== -1) {
+        const sameItems = pupilItems.filter(item => item === itemKey)
+        const previousCost = getters.getEyeItems[itemIndex].cost
+
+        const priceMultiplyBy = (1 + Math.log(sameItems.length))
+        const baseCost = ITEMS_BASE_PRICE[itemKey]
+
+        commit('SET_EYE_ITEM_COST', {
+          itemIndex,
+          cost: {
+            wood: Math.round(previousCost.wood + (priceMultiplyBy * baseCost.wood)),
+            pepper: Math.round(previousCost.pepper + (priceMultiplyBy * baseCost.pepper))
+          }
+        })
       }
     },
     increaseTribeResources ({ commit, getters }) {

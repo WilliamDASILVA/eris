@@ -47,16 +47,12 @@
         The Eye
       </h2>
       <div>
-        <button
+        <ShopItem
           v-for="item in getEyeItems"
           :key="item.key"
-          type="button"
-          @click="shop(item.key)"
-        >
-          Name: {{ item.name }}<br />
-          Cost: {{ item.cost.wood }} W. / {{ item.cost.pepper }} P.<br />
-          Stats: {{ item.stats.cooldown_reduction }} CDR.
-        </button>
+          :item="item"
+          @click.native="shop(item.key)"
+        />
       </div>
     </div>
   </div>
@@ -65,8 +61,13 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
 
+  import ShopItem from '@/components/Shop/_subs/ShopItem'
+
   export default {
     name: 'App',
+    components: {
+      ShopItem
+    },
     data () {
       return {
         interval: null,
