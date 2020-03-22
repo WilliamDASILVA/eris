@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <TribeHeader />
+    <Actions />
     <div>
       <h1>
         Bob:
@@ -14,37 +16,6 @@
         Max capacity: {{ getPupilMaxCapacity }}
       </div>
     </div>
-    <div>
-      <h1>
-        Tribe:
-      </h1>
-      <div>
-        Wood: {{ getTribeWood }}
-      </div>
-      <div>
-        Pepper: {{ getTribePepper }}
-      </div>
-      <div>
-        Progress: <progress
-          max="100"
-          :value="getTribeProgression"
-        />
-      </div>
-    </div>
-    <button
-      type="button"
-      :disabled="$wait.is('gathering wood')"
-      @click="gather"
-    >
-      Gather wood
-    </button>
-    <button
-      type="button"
-      :disabled="$wait.is('unloading')"
-      @click="bringWood"
-    >
-      Bring wood ({{ getCooldown.unload }} CD)
-    </button>
     <div>
       <h2>
         The Eye
@@ -64,11 +35,15 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
 
+  import TribeHeader from '@/components/TribeHeader'
+  import Actions from '@/components/Actions'
   import ShopItem from '@/components/Shop/_subs/ShopItem'
 
   export default {
     name: 'App',
     components: {
+      TribeHeader,
+      Actions,
       ShopItem
     },
     data () {
@@ -81,6 +56,7 @@
         'getEyeItems',
         'getPupilWood',
         'getPupilPepper',
+        'getPupilItems',
         'getTribeWood',
         'getTribePepper',
         'getCooldown',
@@ -121,13 +97,15 @@
   }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="css" scoped>
+  #app {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
 </style>
