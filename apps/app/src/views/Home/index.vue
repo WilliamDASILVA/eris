@@ -14,7 +14,7 @@
         Commencer
       </router-link>
       <div class="text-white text-center mt-12 w-2/3 mx-auto">
-        Mini-jeu réalisé par <a href="https://william.to/web" class="text-green-gradient underline hover:underline">William DA SILVA</a> pour le concours création d'Unexpected.
+        Mini-jeu réalisé par <a href="https://william.to/web" target="_blank" class="text-green-gradient underline hover:underline">William DA SILVA</a> pour le concours création d'Unexpected.
       </div>
     </div>
   </div>
