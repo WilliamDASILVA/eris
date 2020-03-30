@@ -29,6 +29,10 @@ const ITEMS_BASE_PRICE = {
 export default new Vuex.Store({
   state: {
     unload_cooldown: 2000,
+    sum: {
+      wood: 0,
+      pepper: 0
+    },
     pupil: {
       speciality: 'gatherer', // sinon peut être "fruit_gatherer", "lumberman"
       wood: 0,
@@ -123,6 +127,9 @@ export default new Vuex.Store({
     getPupilItems (state) {
       return state.pupil.items
     },
+    getPupilSum (state) {
+      return state.sum
+    },
     getPupilSpirits (state) {
       const SPIRITS = ['gatherer_spirit', 'fruit_gatherer_spirit', 'woodcutter_spirit']
       return state.pupil.items.filter(item => SPIRITS.includes(item))
@@ -151,9 +158,11 @@ export default new Vuex.Store({
       state.pupil.items.push(item)
     },
     INCREASE_PUPIL_WOOD_BY (state, value) {
+      state.sum.wood = state.sum.wood + value
       state.pupil.wood = state.pupil.wood + value
     },
     INCREASE_PUPIL_PEPPER_BY (state, value) {
+      state.sum.pepper = state.sum.pepper + value
       state.pupil.pepper = state.pupil.pepper + value
     }
   },
@@ -173,10 +182,8 @@ export default new Vuex.Store({
           ? 0
           : 1
 
-      const wood = getters.getPupilWood
-      const pepper = getters.getPupilPepper
-      commit('SET_PUPIL_WOOD', wood + (odds ? 1 : 0))
-      commit('SET_PUPIL_PEPPER', pepper + (odds ? 0 : 1))
+      commit('INCREASE_PUPIL_WOOD_BY', (odds ? 1 : 0))
+      commit('INCREASE_PUPIL_PEPPER_BY', (odds ? 0 : 1))
     },
     unload ({ commit, getters }) {
       const pupilWood = getters.getPupilWood

@@ -15,6 +15,26 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background-color: #EAB6A8;
+.btn {
+  @apply bg-green-500 text-white text-xl text-center mx-auto px-6 py-4 rounded overflow-hidden;
+
+  background: rgb(73,203,176);
+  background: linear-gradient(180deg, rgba(73,203,176,1) 0%, rgba(40,125,119,1) 100%);
+}
+
+.btn:hover {
+  background: rgb(83, 218, 191);
+  background: linear-gradient(180deg, rgb(81, 214, 187) 0%, rgba(40,125,119,1) 100%);
+}
+
+.btn:active {
+  background: linear-gradient(0deg, rgba(73,203,176,1) 0%, rgba(40,125,119,1) 100%);
+  box-shadow: 0 0 0 4px rgb(73,203,176);
+}
+
+.text-green-gradient {
+  background: rgb(73,203,176);
+  background: linear-gradient(180deg, rgba(73,203,176,1) 0%, rgba(40,125,119,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
