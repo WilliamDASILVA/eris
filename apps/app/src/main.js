@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VueGtag from 'vue-gtag'
+import VueAnalytics from 'vue-analytics'
 
 import App from './App.vue'
 
@@ -9,11 +9,10 @@ import router from './router'
 
 import '@/assets/main.css'
 
-Vue.use(VueGtag, {
-  config: {
-    id: 'UA-52605586-4'
-  }
-}, router)
+Vue.use(VueAnalytics, {
+  id: 'UA-52605586-4',
+  router
+})
 
 Vue.config.productionTip = false
 
