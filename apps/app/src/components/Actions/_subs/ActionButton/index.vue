@@ -4,7 +4,7 @@
       width: `${size}px`,
       height: `${size}px`
     }"
-    class="action-button"
+    class="action-button flex justify-center items-center"
     type="button"
   >
     <span class="action-button__dot" />

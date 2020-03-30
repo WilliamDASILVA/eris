@@ -3,7 +3,7 @@
     <TribeHeader />
     <Actions class="w-5/12"/>
     <div class="bg-white p-4 w-3/12">
-      <h1 class="text-orange-500 text-2xl">
+      <h1 class="text-orange-500 text-2xl font-medium">
         Eris
       </h1>
       <div>
@@ -54,7 +54,6 @@
     mounted () {
       this.interval = setInterval(() => {
         this.increasePupilResources()
-        this.increaseTribeResources()
         this.decreaseTribeResources()
       }, 1000)
     },

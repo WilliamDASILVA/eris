@@ -45,7 +45,7 @@ export default new Vuex.Store({
         {
           key: 'lama',
           name: 'Lama',
-          description: 'Reduce the delay between each travel between the forest and the caravan.',
+          description: 'Réduit le temps de trajet entre la forêt et la caravanne..',
           stats: {
             cooldown_reduction: 1000
           },
@@ -53,26 +53,26 @@ export default new Vuex.Store({
         },
         {
           key: 'gatherer_spirit',
-          name: 'Gatherer Spirit',
-          description: 'Help the pupil by collecting one wood or pepper automatically.',
+          name: 'Esprit ramasseur',
+          description: 'Aide la pupille en collectant soit du bois soit des poivrouilles, à chaque fois automatiquement.',
           cost: ITEMS_BASE_PRICE.gatherer_spirit
         },
         {
           key: 'woodcutter_spirit',
-          name: 'Woodcutter Spirit',
-          description: 'Help the pupil by collecting only one wood at the time automatically.',
+          name: 'Esprit bûcheron',
+          description: 'Aide la poivrouille en collectant un de bois, à chaque fois automatiquement.',
           cost: ITEMS_BASE_PRICE.woodcutter_spirit
         },
         {
           key: 'fruit_gatherer_spirit',
-          name: 'Fruit Gatherer Spirit',
-          description: 'Help the pupil by collecting only one pepper at the time automatically.',
+          name: 'Esprit ramasseur de fruits',
+          description: 'Aide la pupille en collectant une poivrouille, à chaque fois automatiquement.',
           cost: ITEMS_BASE_PRICE.fruit_gatherer_spirit
         },
         {
           key: 'max_capacity',
-          name: 'Ballon capacity',
-          description: 'Increase the ballon capacity by 100.',
+          name: 'Capacité du ballon',
+          description: 'Augmente la capacité du ballon de 100.',
           cost: ITEMS_BASE_PRICE.max_capacity
         }
       ]
@@ -275,8 +275,8 @@ export default new Vuex.Store({
       const pepper = getters.getTribePepper
       const progression = getters.getTribeProgression
 
-      const woodToConsume = 2
-      const pepperToConsume = 2
+      const woodToConsume = Math.min(Math.round(Math.random() * 10), wood)
+      const pepperToConsume = Math.min(Math.round(Math.random() * 10), pepper)
 
       if (wood >= woodToConsume && pepper >= pepperToConsume) {
         commit('SET_TRIBE_WOOD', wood - woodToConsume)
