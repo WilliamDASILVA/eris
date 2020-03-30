@@ -6,11 +6,11 @@
       </div>
       <div class="tribe-header__resources">
         <ResourceItem
-          :icon="require('@/assets/wood.svg')"
+          :icon="require('@/assets/wood.gif')"
           :value="`${getTribeWood} bois`"
         />
         <ResourceItem
-          :icon="require('@/assets/pepper.svg')"
+          :icon="require('@/assets/pepper.gif')"
           :value="`${getTribePepper} poivrouilles`"
         />
       </div>

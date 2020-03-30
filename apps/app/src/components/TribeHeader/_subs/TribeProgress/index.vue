@@ -7,6 +7,10 @@
       class="tribe-progress__progress"
     />
     <img
+      class="tribe-progress__eye"
+      src="@/assets/eye_spin.gif"
+    />
+    <img
       :style="{
         left: `calc(${getTribeProgression}% - 64px)`
       }"
@@ -47,9 +51,16 @@
     height: 45px;
   }
 
-  .tribe-progress__caravan {
+  .tribe-progress__caravan,
+  .tribe-progress__eye {
     position: absolute;
     top: -64px;
+    image-rendering: pixelated;
+  }
+
+  .tribe-progress__eye {
+    right: -64px;
+    top: -40px;
   }
  
   .tribe-progress__progress {

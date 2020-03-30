@@ -86,10 +86,11 @@
     cursor: pointer;
     border: 8px solid #4F4459;
     outline: none;
-    transition: transform 200ms ease-in-out;
+    transition: transform 200ms ease-in-out, box-shadow 200ms;
 
     background-color: #4D435A;
     background-image: linear-gradient(180deg, #4D435A 0%, #3B2D3F 100%);
+    box-shadow: none;
   }
 
   .action-button:hover:not(:disabled) {
@@ -102,6 +103,11 @@
     background-color: #4D435A;
     background-image: linear-gradient(0deg, #685E74 0%, #443748 100%);
     transform: scale(1);
+    box-shadow: inset 0px 3px 0px #ffa053;
+  }
+
+  .action-button.blue:active:not(:disabled) {
+    box-shadow: inset 0px 3px 0px #23BEE0;
   }
 
   .action-button__image {

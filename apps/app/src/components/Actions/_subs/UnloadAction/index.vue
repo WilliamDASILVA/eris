@@ -5,7 +5,7 @@
     :size="100"
     :loading="true"
     :loading-progression="$wait.percent('unloading')"
-    class="unload-action"
+    class="unload-action blue"
   />
 </template>
 

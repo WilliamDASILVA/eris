@@ -53,6 +53,7 @@
   .resource-item__icon img {
     width: 28px;
     height: 28px;
+    image-rendering: pixelated;
   }
 
   .resource-item__value {
