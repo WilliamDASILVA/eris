@@ -4,7 +4,7 @@
 
 > A "CookieClicker" browser game, inspired by the "As Far As The Eye" universe from Unexpected game studio.
 
-The game can be played at www.eristhegatherer.com.
+The game can be played at http://www.eristhegatherer.xyz.
 
 ## License
 
