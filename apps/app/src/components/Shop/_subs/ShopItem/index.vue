@@ -1,9 +1,9 @@
 <template>
   <button
     type="button"
-    class="shop-item"
+    class="shop-item flex flex-col bg-white hover:bg-gray-200 text-left border rounded px-4 py-2"
   >
-    <div class="shop-item__name"
+    <div class="shop-item__name text-xl"
       v-text="item.name"
     />
     <p class="shop-item__description"

@@ -1,34 +1,22 @@
 <template>
   <div id="app">
     <TribeHeader />
-    <Actions />
-    <div>
-      <h1>
-        Bob:
+    <Actions class="w-5/12"/>
+    <div class="bg-white p-4 w-3/12">
+      <h1 class="text-orange-500 text-2xl">
+        Eris
       </h1>
       <div>
-        Wood: {{ getPupilWood }}
+        Bois : {{ getPupilWood }}
       </div>
       <div>
-        Pepper: {{ getPupilPepper }}
+        Poivrouilles : {{ getPupilPepper }}
       </div>
       <div>
-        Max capacity: {{ getPupilMaxCapacity }}
+        Capacité de transport : {{ getPupilMaxCapacity }}
       </div>
     </div>
-    <div>
-      <h2>
-        The Eye
-      </h2>
-      <div>
-        <ShopItem
-          v-for="item in getEyeItems"
-          :key="item.key"
-          :item="item"
-          @click.native="shop(item.key)"
-        />
-      </div>
-    </div>
+    <Shop class="w-7/12"/>
   </div>
 </template>
 
@@ -37,14 +25,14 @@
 
   import TribeHeader from '@/components/TribeHeader'
   import Actions from '@/components/Actions'
-  import ShopItem from '@/components/Shop/_subs/ShopItem'
+  import Shop from '@/components/Shop'
 
   export default {
     name: 'App',
     components: {
       TribeHeader,
       Actions,
-      ShopItem
+      Shop,
     },
     data () {
       return {
@@ -53,7 +41,6 @@
     },
     computed: {
       ...mapGetters([
-        'getEyeItems',
         'getPupilWood',
         'getPupilPepper',
         'getPupilItems',
@@ -80,7 +67,6 @@
       ...mapActions([
         'gather',
         'unload',
-        'shop',
         'increasePupilResources',
         'increaseTribeResources',
         'decreaseTribeResources'
@@ -107,5 +93,12 @@
     position: absolute;
     bottom: 0;
     left: 0;
+  }
+
+  
+  .shop {
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
 </style>
