@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Home from '@/views/Home'
 import Dialog from '@/views/Dialog'
+import Explanation from '@/views/Explanation'
 import Game from '@/views/Game'
 import Victory from '@/views/Game/Victory'
 
@@ -19,6 +20,11 @@ const router = new VueRouter({
       name: 'Dialog',
       path: '/dialog/:id',
       component: Dialog
+    },
+    {
+      name: 'Explanation',
+      path: '/explanation/:id',
+      component: Explanation
     },
     {
       name: 'Game',

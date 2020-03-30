@@ -1,11 +1,14 @@
 <template>
   <div class="dialog flex h-screen">
     <div class="flex flex-col m-auto container">
-      <img
-        :src="require(`@/assets/${dialog.speaker}.gif`)"
-        alt="Eris The Gatherer"
-        class="mb-12 mr-auto"
-      >
+      <div class="relative">
+        <div class="dialog__bg"></div>
+        <img
+          :src="require(`@/assets/${dialog.speaker}.gif`)"
+          alt="Eris The Gatherer"
+          class="mb-12"
+        >
+      </div>
       <div
         :class="{
           'text-orange-600': dialog.speaker === 'eris',
@@ -119,6 +122,40 @@
   .dialog {
     background-color: #2A1F2E;
     background: linear-gradient(180deg, rgba(42,31,46,1) 0%, rgba(31,24,33,1) 100%);
+  }
+
+  .dialog__bg {
+    position: absolute;
+    left: -80px;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    width: 300px;
+    height: 300px;
+    border-radius: 100%;
+    background-color: rgba(255, 255, 255, 0.025);
+  }
+
+  .dialog__bg::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    left: -100px;
+    top: -100px;
+    border-radius: 100%;
+    background-color: rgba(255, 255, 255, 0.025);
+  }
+
+  .dialog__bg::after {
+    content: '';
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    left: -250px;
+    top: -250px;
+    border-radius: 100%;
+    background-color: rgba(255, 255, 255, 0.025);
   }
 
   .dialog img {

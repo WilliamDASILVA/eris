@@ -8,7 +8,7 @@
       >
 
       <router-link
-        to="/dialog/1"
+        to="/explanation/1"
         class="btn"
       >
         Commencer
